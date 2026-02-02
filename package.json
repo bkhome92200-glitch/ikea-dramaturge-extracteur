@@ -1,0 +1,16 @@
+{
+  "name": "ikea-playwright-extractor",
+  "version": "3.0.0",
+  "description": "Microservice Playwright for IKEA Kitchen Planner extraction",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "playwright": "^1.41.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
