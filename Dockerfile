@@ -1,20 +1,13 @@
-# Image officielle Playwright avec Chromium déjà installé
-FROM mcr.microsoft.com/playwright:v1.41.0-jammy
+FROM mcr.microsoft.com/playwright:v1.58.1-jammy
 
-# Dossier de travail
 WORKDIR /app
 
-# Copier package.json
-COPY package.json ./
+COPY package*.json ./
+RUN npm ci --omit=dev || npm install --omit=dev
 
-# Installer les dépendances
-RUN npm install --production
+COPY . .
 
-# Copier le code
-COPY src ./src
-
-# Port exposé
+ENV NODE_ENV=production
 EXPOSE 3000
 
-# Lancer le microservice
-CMD ["npm", "start"]
+CMD ["npm","start"]
