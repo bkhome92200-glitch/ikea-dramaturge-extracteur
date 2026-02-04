@@ -76,9 +76,17 @@ async function extractItems(plannerUrl, requestNonce) {
     const page = await (await browser.newContext({ locale: 'fr-FR' })).newPage();
     await page.goto(plannerUrl, { waitUntil: 'networkidle' });
 
-    const iframe = page.frameLocator('iframe');
-    await iframe.locator('button:has-text("Liste")').first().click();
-    await page.waitForTimeout(2000);
+  const iframe = page.frameLocator('iframe');
+
+const listeBtn = iframe.locator('button:has-text("Liste")').first();
+
+if (await listeBtn.count() > 0) {
+  await listeBtn.click();
+  await page.waitForTimeout(2000);
+} else {
+  console.log('[INFO] Bouton "Liste" non trouvé — on continue sans cliquer');
+}
+
 
     const rows = iframe.locator('[class*="item"]');
     const count = await rows.count();
